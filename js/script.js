@@ -35,17 +35,17 @@ function initIntroLoader() {
   // Mark session as seen
   sessionStorage.setItem('nexus_intro_seen', 'true');
 
-  // Trigger staggered exit animation after entrance completes (at 1.8s)
+  // Trigger black screen fade-out at 1.9s as Netflix zoom explosion reaches camera
   setTimeout(() => {
     loader.classList.add('fade-out');
-  }, 1800);
+  }, 1900);
 
-  // Completely remove loader DOM element after fade out (at 2.6s)
+  // Completely remove loader DOM element after fade out completes (at 2.5s)
   setTimeout(() => {
     if (loader.parentNode) {
       loader.parentNode.removeChild(loader);
     }
-  }, 2600);
+  }, 2500);
 }
 
 /* ==========================================================================
