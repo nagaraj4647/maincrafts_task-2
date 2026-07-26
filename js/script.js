@@ -7,6 +7,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all interactive modules
+  initIntroLoader();
   initStickyHeader();
   initMobileMenu();
   initActiveNavHighlight();
@@ -16,6 +17,36 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactFormValidation();
   initBentoGridModal();
 });
+
+/* ==========================================================================
+   0. OPENING INTRO ANIMATION LOADER (FIRST VISIT PER SESSION ONLY)
+   ========================================================================== */
+function initIntroLoader() {
+  const loader = document.getElementById('introLoader');
+  if (!loader) return;
+
+  // Check if intro has already played in this browser session
+  if (sessionStorage.getItem('nexus_intro_seen')) {
+    loader.style.display = 'none';
+    loader.remove();
+    return;
+  }
+
+  // Mark session as seen
+  sessionStorage.setItem('nexus_intro_seen', 'true');
+
+  // Trigger staggered exit animation after entrance completes (at 1.8s)
+  setTimeout(() => {
+    loader.classList.add('fade-out');
+  }, 1800);
+
+  // Completely remove loader DOM element after fade out (at 2.6s)
+  setTimeout(() => {
+    if (loader.parentNode) {
+      loader.parentNode.removeChild(loader);
+    }
+  }, 2600);
+}
 
 /* ==========================================================================
    1. STICKY HEADER & NAVBAR SCROLL DETECTOR
